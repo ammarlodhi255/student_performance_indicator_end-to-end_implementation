@@ -62,8 +62,3 @@ class DataIngestion():
         except Exception as e:
             logging.info(f'Exception is raised: {e}')
             raise CustomException(e, sys)
-
-
-if __name__ == "__main__":
-    di = DataIngestion()
-    di.initiate_data_ingestion()
