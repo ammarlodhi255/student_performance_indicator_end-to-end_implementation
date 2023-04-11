@@ -51,6 +51,7 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 .tempCodeRunnerFile.py
+
 # Translations
 *.mo
 *.pot
