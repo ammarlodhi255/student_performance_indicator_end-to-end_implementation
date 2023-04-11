@@ -2,6 +2,7 @@ import sys
 from src.exception import CustomException
 from src.logger import logging
 from dataclasses import dataclass
+from src.utils import save_object
 import os
 
 import numpy as np
@@ -48,16 +49,16 @@ class DataTransformation:
             num_pipeline = Pipeline(
                 steps=[
                     # since there are outliers in the data, we use strategy=median.
-                    ("Imputer", SimpleImputer(strategy=median)),
+                    ("Imputer", SimpleImputer(strategy='median')),
                     ("StandardScalar", StandardScaler())
                 ]
             )
 
             cat_pipeline = Pipeline(
                 steps=[
-                    ("Imputer", SimpleImputer(strategy=most_frequent)),
+                    ("Imputer", SimpleImputer(strategy='most_frequent')),
                     ("OneHotEncoder", OneHotEncoder()),
-                    ("StandardScalar", StandardScaler())
+                    ("StandardScalar", StandardScaler(with_mean=False))
                 ]
             )
 
@@ -104,14 +105,14 @@ class DataTransformation:
             train_arr = preprocessor_obj.fit_transform(input_train_df)
             test_arr = preprocessor_obj.transform(input_test_df)
 
-            train_arr = np.c_(train_arr, np.array(output_train_df))
-            test_arr = np.c_(test_arr, np.array(output_test_df))
+            train_arr = np.c_[train_arr, np.array(output_train_df)]
+            test_arr = np.c_[test_arr, np.array(output_test_df)]
 
             logging.info('Data has been transformed')
             logging.info('Saving preprocessor object')
 
             save_object(
-                object=preprocessor_obj,
+                obj=preprocessor_obj,
                 file_path=self.data_transformation_config.preprocessor_path
             )
 
