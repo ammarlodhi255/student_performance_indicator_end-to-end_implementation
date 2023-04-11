@@ -21,10 +21,10 @@ def save_object(obj, file_path):
 def evaluate_models(self, X_train, y_train, X_test, y_test, models):
     try:
         evaluation_report = {}
-        
+
         for key in models.keys():
             model = models[key]
-            model.fit(X_train)
+            model.fit(X_train, y_train)
 
             y_train_pred = model.predict(X_train)
             y_train_score = r2_score(y_train, y_train_pred)

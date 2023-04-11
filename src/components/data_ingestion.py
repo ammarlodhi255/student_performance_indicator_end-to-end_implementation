@@ -7,7 +7,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 
 from src.components.data_transformation import DataTransformation
-from src.components.data_transformation import DataTransformationConfig
+from src.components.model_trainer import ModelTrainer
 
 
 @dataclass
@@ -67,8 +67,10 @@ class DataIngestion():
             raise CustomException(e, sys)
 
 
-# if __name__ == "__main__":
-#     di = DataIngestionConfig()
-#     dt = DataTransformation()
-#     train, test, preprocessor = dt.initiate_data_transformation(di.train_data_path, di.test_data_path)
-#     print(f'Train: {train}\n\nTest: {test}\n\nPreprocessor: {preprocessor}')
+if __name__ == "__main__":
+    di = DataIngestionConfig()
+    dt = DataTransformation()
+    train, test, preprocessor_path = dt.initiate_data_transformation(
+        di.train_data_path, di.test_data_path)
+    mt = ModelTrainer()
+    print(mt.initiate_model_training(train, test))
