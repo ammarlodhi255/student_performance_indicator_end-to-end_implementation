@@ -21,7 +21,7 @@ def save_object(obj, file_path):
 def evaluate_models(self, X_train, y_train, X_test, y_test, models):
     try:
         evaluation_report = {}
-
+        
         for key in models.keys():
             model = models[key]
             model.fit(X_train)
@@ -32,7 +32,8 @@ def evaluate_models(self, X_train, y_train, X_test, y_test, models):
             y_test_pred = model.predict(X_test)
             y_test_score = r2_score(y_test, y_test_pred)
 
-            evaluation_report[key] = y_test_score 
-            
+            evaluation_report[key] = y_test_score
+
+        return evaluation_report
     except Exception as e:
         raise CustomException(e, sys)

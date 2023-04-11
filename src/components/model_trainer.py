@@ -2,9 +2,8 @@ import os
 import sys
 from src.exception import CustomException
 from src.logger import logging
-from src.utils import save_object
+from src.utils import save_object, evaluate_models
 from dataclasses import dataclass
-from src.utils import evaluate_models
 
 import numpy as np
 import pandas as pd
@@ -54,7 +53,19 @@ class ModelTrainer:
 
             logging.info('all models initialized')
 
-            evaluation_report: dict = evaluate_models(self, X_train, y_train, X_test, y_test, models)
+            evaluation_report: dict = evaluate_models(
+                self, X_train, y_train, X_test, y_test, models)
+
+            best_model_score = max(sorted(evaluation_report.values()))
+            best_model_name = list(evaluation_report.keys())[list(evaluation_report.values()).index(best_model_score)]
+            
+            if best_model_score < 0.6:
+                raise CustomException('No best model found!')
+
+            model = models[best_model_name]
+            logging.info('Best model is found. Saving...')
+            save_object(model, self.model_trainer_config.trained_model_path)
+            logging.info('Model saved!')
 
         except Exception as e:
             raise CustomException(e, sys)
