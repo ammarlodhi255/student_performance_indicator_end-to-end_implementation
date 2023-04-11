@@ -20,6 +20,13 @@ class DataIngestion():
         self.ingestion_config = DataIngestionConfig()
 
     def initiate_data_ingestion(self):
+        '''
+        This function initiates the data ingestion and returns the path to train, 
+        test, and raw data.
+
+        returns: Tuple of three paths (train, test, and raw data)
+        '''
+
         logging.info('Initiating the data ingestion')
 
         try:
@@ -51,7 +58,7 @@ class DataIngestion():
                 self.ingestion_config.train_data_path,
                 self.ingestion_config.test_data_path
             )
-            
+
         except Exception as e:
             logging.info(f'Exception is raised: {e}')
             raise CustomException(e, sys)
