@@ -5,6 +5,7 @@ from src.components.model_trainer import ModelTrainerConfig
 from src.utils import load_object
 import pandas as pd 
 
+
 class PredictPipeline:
     def __init__(self):
         pass 
