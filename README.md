@@ -61,7 +61,7 @@ Link : [EDA Notebook](./notebook/eda_on_data.ipynb)
 
 Link : [Model Training Notebook](./notebook/model_training.ipynb)
 
-### Usage:
+# Usage:
 
 1. conda create -p std python=3.8 -y
 2. conda activate std/
